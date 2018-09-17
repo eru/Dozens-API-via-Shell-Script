@@ -1,17 +1,22 @@
-dynamicIPUpdate.sh is works for Dozens DNS Record Global IP Addtess update.
+# Dozens-API-via-Shell-Script
 
-First, open dynamicIPUpdate.sh with editor application and replace below:
+dynamicIPUpdate.sh is works for [Dozens](https://dozens.jp/) DNS Record Global IP Addtess update.
 
-line 4 replace your Dozens user name into X\_AUTH\_USER (e.g. johnappleseed).
-line 5 replace your API Key into X\_AUTH\_KEY (e.g. 123abc456def789ghi).
-line 6 replace your zone name into ZONE (e.g. example.com).
-line 7 replace your domain name into DOMAIN (e.g. www.example.com).
-line 8 replace your ethernet device into DEVICE (e.g. eth0).
+## Requirements
 
-Next, give executable mode to dynamicIPUpdate.sh and running script.
+- [curl](https://curl.haxx.se/)
+- [jq](https://stedolan.github.io/jq/)
 
-本家との違い
-・グローバルIPアドレスを取得しに行くデバイスを設定するようにしました。
-・DOMAINNAME = SERVERNAME の時に更新できないのを修正しました。
+## Usage
+
+- `X\_AUTH\_USER`: Username.
+- `X\_AUTH\_KEY`: API Key.
+- `ZONE`: Zone name.
+- `DOMAIN`: Domain name.
+- `DEVICE`: Ethernet device.
+
+```sh
+$ X_AUTH_USER="johnappleseed" X_AUTH_KEY="123abc456def789ghi" ZONE="example.com" DOMAIN="www.example.com" DEVICE="eth0" dynamicIPUpdate.sh
+```
 
 Thanks mutuki !!

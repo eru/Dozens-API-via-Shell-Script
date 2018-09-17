@@ -1,13 +1,33 @@
 #!/bin/bash
 
-# KEYWORDS
-X_AUTH_USER="user"
-X_AUTH_KEY="key"
-ZONE="zone name"
-DOMAIN="domain name"
-DEVICE="eth0"
-
 echo "Dozens dynamic IP setter version 0.3b mod"
+
+# Variable check
+ERROR=""
+if [ -z "$X_AUTH_USER" ]; then
+  echo "Require X_AUTH_USER: Username. (e.g. johnappleseed)"
+  ERROR="1"
+fi
+if [ -z "$X_AUTH_KEY" ]; then
+  echo "Require X_AUTH_KEY: API key. (e.g. 123abc456def789ghi)"
+  ERROR="1"
+fi
+if [ -z "$ZONE" ]; then
+  echo "Require ZONE: Zone name. (e.g. example.com)"
+  ERROR="1"
+fi
+if [ -z "$DOMAIN" ]; then
+  echo "Require DOMAIN: domain name. (e.g. www.example.com)"
+  ERROR="1"
+fi
+if [ -z "$DEVICE" ]; then
+  echo "Require DEVICE: ethernet device. (e.g. eth0)"
+  ERROR="1"
+fi
+if [ -n "$ERROR" ]; then
+  echo 'usage: X_AUTH_USER="johnappleseed" X_AUTH_KEY="123abc456def789ghi" ZONE="example.com" DOMAIN="www.example.com" DEVICE="eth0" dynamicIPUpdate.sh'
+  exit 1
+fi
 
 # Get Global IP address
 GLOBALIPV4=$(curl --interface $DEVICE -s http://v4.ipv6-test.com/api/myip.php)
