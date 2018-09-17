@@ -1,6 +1,6 @@
 # Dozens-API-via-Shell-Script
 
-dynamicIPUpdate.sh is works for [Dozens] DNS Record Global IP Address update.
+dynamic-ip-update.sh is works for [Dozens] DNS Record Global IP Address update.
 
 certbot-auth-hook.sh and certbot-cleanup-hook.sh are [Certbot\(Let's encrypt\)] automation scripts for [Dozens].
 
@@ -19,7 +19,7 @@ certbot-auth-hook.sh and certbot-cleanup-hook.sh are [Certbot\(Let's encrypt\)] 
 - `DOMAIN`: Domain name.
 - `DEVICE`: Ethernet device.
 
-### dynamicIPUpdate.sh
+### dynamic-ip-update.sh
 
 ```sh
 $ X_AUTH_USER="johnappleseed" \
@@ -27,7 +27,7 @@ $ X_AUTH_USER="johnappleseed" \
     ZONE="example.com" \
     DOMAIN="www.example.com" \
     DEVICE="eth0" \
-    dynamicIPUpdate.sh
+    dynamic-ip-update.sh
 ```
 
 ### certbot-auth-hook.sh / certbot-cleanup-hook.sh
