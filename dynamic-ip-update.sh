@@ -30,19 +30,19 @@ if [ -n "$ERROR" ]; then
 fi
 
 # Get Global IP address
-GLOBALIPV4=$(curl --interface $DEVICE -s http://v4.ipv6-test.com/api/myip.php)
-echo "Your global IPv4 is $GLOBALIPV4"
-GLOBALIPV6=$(curl --interface $DEVICE -s http://v6.ipv6-test.com/api/myip.php)
-echo "Your global IPv6 is $GLOBALIPV6"$'\n'
+GLOBAL_IP_V4=$(curl --interface $DEVICE -s http://v4.ipv6-test.com/api/myip.php)
+echo "Your global IPv4 is $GLOBAL_IP_V4"
+GLOBAL_IP_V6=$(curl --interface $DEVICE -s http://v6.ipv6-test.com/api/myip.php)
+echo "Your global IPv6 is $GLOBAL_IP_V6"$'\n'
 
 # Auth initialization
 echo "Auth initialization start."
-MYKEY=$(curl -s http://dozens.jp/api/authorize.json -H X-Auth-User:$X_AUTH_USER -H X-Auth-Key:$X_AUTH_KEY | jq -r '.auth_token')
-echo "Your key is : $MYKEY"$'\n'
+TOKEN=$(curl -s http://dozens.jp/api/authorize.json -H X-Auth-User:$X_AUTH_USER -H X-Auth-Key:$X_AUTH_KEY | jq -r '.auth_token')
+echo "Your auth token is: $TOKEN"$'\n'
 
 # Get domain records
 echo "Getting $ZONE records..."$'\n'
-JSON=$(curl -s http://dozens.jp/api/record/$ZONE.json -H X-Auth-Token:$MYKEY)
+JSON=$(curl -s http://dozens.jp/api/record/$ZONE.json -H X-Auth-Token:$TOKEN)
 
 # Get server a record id
 echo "Serching $DOMAIN A record..."
@@ -51,8 +51,8 @@ echo "$DOMAIN A record id is $RECORD_ID""."$'\n'
 
 # Set IP Address
 echo "Recode update in progress..."
-RESULT=$(curl -s -d "{\"prio\":\"\", \"content\":\"$GLOBALIPV4\", \"ttl\":\"7200\"}" http://dozens.jp/api/record/update/$RECORD_ID.json -H X-Auth-Token:$MYKEY -H "Host: dozens.jp" -H "Content-Type:application/json" | jq -r ".record[] | select(.id == \"$RECORD_ID\")")
-echo "Dozens server says : $RESULT"$'\n'
+RESULT=$(curl -s -d "{\"prio\":\"\", \"content\":\"$GLOBAL_IP_V4\", \"ttl\":\"7200\"}" http://dozens.jp/api/record/update/$RECORD_ID.json -H X-Auth-Token:$TOKEN -H "Host: dozens.jp" -H "Content-Type:application/json" | jq -r ".record[] | select(.id == \"$RECORD_ID\")")
+echo "Dozens server says: $RESULT"$'\n'
 
 # Get server aaaa record id
 echo "Serching $DOMAIN AAAA record..."
@@ -61,7 +61,7 @@ echo "$DOMAIN AAAA record id is $RECORD_ID""."$'\n'
 
 # Set IP Address
 echo "Recode update in progress..."
-RESULT=$(curl -s -d "{\"prio\":\"\", \"content\":\"$GLOBALIPV6\", \"ttl\":\"7200\"}" http://dozens.jp/api/record/update/$RECORD_ID.json -H X-Auth-Token:$MYKEY -H "Host: dozens.jp" -H "Content-Type:application/json" | jq -r ".record[] | select(.id == \"$RECORD_ID\")")
-echo "Dozens server says : $RESULT"$'\n'
+RESULT=$(curl -s -d "{\"prio\":\"\", \"content\":\"$GLOBAL_IP_V6\", \"ttl\":\"7200\"}" http://dozens.jp/api/record/update/$RECORD_ID.json -H X-Auth-Token:$TOKEN -H "Host: dozens.jp" -H "Content-Type:application/json" | jq -r ".record[] | select(.id == \"$RECORD_ID\")")
+echo "Dozens server says: $RESULT"$'\n'
 
 echo "Script is done!"$'\n'
