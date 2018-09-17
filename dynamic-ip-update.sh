@@ -46,7 +46,7 @@ JSON=$(curl -s http://dozens.jp/api/record/$ZONE.json -H X-Auth-Token:$TOKEN)
 
 # Get server a record id
 echo "Serching $DOMAIN A record..."
-RECORD_ID=$(echo $JSON | jq -r '.record[] | select(.name == "$DOMAIN") | select(.type == "A") | .id')
+RECORD_ID=$(echo $JSON | jq -r ".record[] | select(.name == \"$DOMAIN\") | select(.type == \"A\") | .id")
 echo "$DOMAIN A record id is $RECORD_ID""."$'\n'
 
 # Set IP Address
@@ -56,7 +56,7 @@ echo "Dozens server says: $RESULT"$'\n'
 
 # Get server aaaa record id
 echo "Serching $DOMAIN AAAA record..."
-RECORD_ID=$(echo $JSON | jq -r '.record[] | select(.name == "$DOMAIN") | select(.type == "AAAA") | .id')
+RECORD_ID=$(echo $JSON | jq -r ".record[] | select(.name == \"$DOMAIN\") | select(.type == \"AAAA\") | .id")
 echo "$DOMAIN AAAA record id is $RECORD_ID""."$'\n'
 
 # Set IP Address
